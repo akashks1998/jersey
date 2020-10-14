@@ -17,11 +17,11 @@ public class timeToEpoch
     @RolesAllowed("ADMIN")
     @POST
     @Produces(MediaType.APPLICATION_JSON)
-    public Response converter(@FormParam("str") String str) {
+    public Response converter(@FormParam("dateAndTime") String dateAndTime) {
 
         SimpleDateFormat df = new SimpleDateFormat("dd/mm/yyyy HH:mm:ss");
         try{
-            Date date = df.parse(str);
+            Date date = df.parse(dateAndTime);
             long epoch = date.getTime();
             return Response.ok(String.valueOf(epoch)).build();
         }catch (ParseException e){
