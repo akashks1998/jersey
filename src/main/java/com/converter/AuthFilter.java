@@ -9,6 +9,7 @@ import java.util.StringTokenizer;
 import javax.annotation.security.DenyAll;
 import javax.annotation.security.PermitAll;
 import javax.annotation.security.RolesAllowed;
+import javax.servlet.ServletContext;
 import javax.ws.rs.container.ContainerRequestContext;
 import javax.ws.rs.container.ResourceInfo;
 import javax.ws.rs.core.Context;
@@ -22,6 +23,8 @@ public class AuthFilter implements javax.ws.rs.container.ContainerRequestFilter 
 
     @Context
     private ResourceInfo resourceInfo;
+    @Context
+    ServletContext context;
     private static final String AUTHORIZATION_PROPERTY = "Authorization";
     private static final String AUTHENTICATION_SCHEME = "Basic";
 
@@ -65,7 +68,9 @@ public class AuthFilter implements javax.ws.rs.container.ContainerRequestFilter 
     }
     private boolean isUserAllowed(final String username, final String password, final Set<String> rolesSet) {
         boolean isAllowed = false;
-        if(username.equals(System.getenv("USERNAME")) && password.equals(System.getenv("PASSWORD"))) {
+        String user=context.getInitParameter("username");
+        String pass=context.getInitParameter("password");
+        if(username.equals(user) && password.equals(pass)) {
             String userRole = "ADMIN";
             if(rolesSet.contains(userRole)) {
                 isAllowed = true;

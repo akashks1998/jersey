@@ -19,4 +19,12 @@
         <servlet-name>jersey-serlvet</servlet-name>
         <url-pattern>/rest/*</url-pattern>
     </servlet-mapping>
+    <context-param>
+        <param-name>username</param-name>
+        <param-value>Akash</param-value>
+    </context-param>
+    <context-param>
+        <param-name>password</param-name>
+        <param-value>password</param-value>
+    </context-param>
 </web-app>
